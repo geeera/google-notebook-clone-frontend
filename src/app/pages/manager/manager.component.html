@@ -1,0 +1,25 @@
+@let file = file$ | async;
+@defer (when file && !isLoading()) {
+  <nb-chat (navigateToPage)="changeFilePagePosition($event)"></nb-chat>
+
+  <pdf-viewer
+    style="width: 100%; height: 100%;"
+    [src]="file?.url"
+    [render-text]="true"
+    [fit-to-page]="true"
+    [original-size]="false"
+    [zoom]="1.0"
+    [show-all]="true"
+    [autoresize]="false"
+    [render-text-mode]="1"
+    [page]="pageIndex()"
+    (error)="onPdfError($event)"
+    (on-progress)="onPdfProgress($event)"
+  ></pdf-viewer>
+}
+@if (isLoading()) {
+  <nb-file-loader
+    [progress]="progress()"
+    [fileType]="'PDF'"
+  ></nb-file-loader>
+}

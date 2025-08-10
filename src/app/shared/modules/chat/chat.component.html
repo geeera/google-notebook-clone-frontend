@@ -1,0 +1,101 @@
+@if (viewData$ | async; as viewData) {
+  <div class="wrapper">
+    @if (isNotificationVisible()) {
+      <nb-notification class="notification" (close)="closeNotification(viewData.chatId)">
+        <div class="notification__header">
+          <mat-icon>insert_drive_file</mat-icon>
+          <h3 class="notification__header--title">Your document is ready</h3>
+        </div>
+
+        <span>You can now ask questions about your document. For example:</span>
+
+        <ul class="notification__list">
+          @for(question of exampleQuestions; track question) {
+            <li (click)="sendMessage(viewData.chatId, question)">"{{ question }}"</li>
+          }
+        </ul>
+      </nb-notification>
+    }
+
+    <div class="scroll-container">
+      <div class="messages" #messagesContainerRef (scroll)="handleMessagesContainerScroll($event)">
+        @for (message of viewData.messages; track message._id) {
+          @switch (message.sender) {
+            @case (Sender.AI_BOT) {
+              <nb-message
+                class="message bot"
+              >
+                <div class="flex column" style="gap: 10px;">
+                  <div class="flex">
+                    <mat-icon color="violet" style="flex: 1 0 auto;">
+                      headset_mic
+                    </mat-icon>
+                    {{ message.text }}
+                  </div>
+                  @if (message?.pages?.length) {
+                    <div class="pages-wrapper">
+                      @for (page of message.pages; track page) {
+                        <button
+                          mat-button
+                          (click)="handleNavigationToPage(page.page)"
+                        >{{ page.label }}</button>
+                      }
+                    </div>
+                  }
+                </div>
+              </nb-message>
+            }
+
+            @case (Sender.USER) {
+              <nb-message
+                class="message user"
+              >
+                {{ message.text }}
+              </nb-message>
+            }
+          }
+        }
+
+        @if (isBotThinking()) {
+          <nb-message class="message bot loading-dots">
+            <span></span>
+            <span></span>
+            <span></span>
+          </nb-message>
+        }
+      </div>
+
+      @if (isScrollButtonVisible()) {
+        <button
+          mat-icon-button
+          class="scroll-to-bottom-btn"
+          (click)="scrollToBottom()"
+        >
+          <mat-icon>keyboard_arrow_down</mat-icon>
+        </button>
+      }
+    </div>
+  </div>
+
+  <form class="text-field-wrapper" (submit)="sendMessage(viewData.chatId, textFieldValue)">
+    <textarea
+      class="field"
+      placeholder="Ask about the document..."
+      cdkTextareaAutosize
+      cdkAutosizeMinRows="2"
+      cdkAutosizeMaxRows="7"
+      [(ngModel)]="textFieldValue"
+      [ngModelOptions]="{ standalone: true }"
+      (keydown.enter)="onEnterKeyDown($event, viewData.chatId, textFieldValue)"
+      (keypress)="breakLine($event)"
+    ></textarea>
+
+    <button
+      mat-mini-fab
+      (click)="sendMessage(viewData.chatId, textFieldValue)"
+      [disabled]="!textFieldValue"
+    >
+      <mat-icon>send</mat-icon>
+    </button>
+  </form>
+}

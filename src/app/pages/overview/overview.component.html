@@ -1,0 +1,10 @@
+@if (!isUploading()) {
+  <nb-file-uploader
+    (selected)="onFileSelected($event)"
+  ></nb-file-uploader>
+} @else {
+  <nb-file-loader
+    [progress]="progress()"
+    [fileType]="'PDF'"
+  ></nb-file-loader>
+}

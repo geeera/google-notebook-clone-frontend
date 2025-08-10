@@ -1,0 +1,14 @@
+:host {
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 10px;
+  position: relative;
+  box-shadow: 1px 1px 5px 1px;
+  z-index: 1;
+
+  .close--btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+}

@@ -1,0 +1,20 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 350px;
+  gap: 10px;
+
+  &.f-d-c {
+    flex-direction: column;
+  }
+
+  &.s-b {
+    justify-content: space-between;
+  }
+
+  &.w-mc {
+    width: max-content;
+    min-width: max-content;
+  }
+}

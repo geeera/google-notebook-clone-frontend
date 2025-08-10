@@ -1,0 +1,13 @@
+<mat-card>
+  <mat-card-content class="container f-d-c">
+    <div class="container s-b">
+      <div class="container w-mc">
+        <mat-spinner color="primary" [diameter]="20"></mat-spinner>
+        <span>Uploading {{ fileType | uppercase }}</span>
+      </div>
+
+      <span>{{ progress }}%</span>
+    </div>
+    <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
+  </mat-card-content>
+</mat-card>

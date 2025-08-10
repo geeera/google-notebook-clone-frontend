@@ -1,0 +1,15 @@
+.card {
+
+  &:hover,
+  &.dragging {
+    background: rgba(var(--mdc-elevated-card-container-color, var(--mat-sys-surface-container-low)), .5);
+  }
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  cursor: pointer;
+}

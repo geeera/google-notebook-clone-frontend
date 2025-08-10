@@ -1,0 +1,21 @@
+<mat-card
+  nbDragAndDrop
+  (dropped)="handleFileDrop($event)"
+  (click)="onClick($event)"
+  class="card"
+>
+  <mat-card-content class="container">
+    <button mat-icon-button>
+      <mat-icon color="primary">attach_file</mat-icon>
+    </button>
+    <p>Upload PDF to start chatting</p>
+    <span>Click or drag and drop your file here</span>
+  </mat-card-content>
+</mat-card>
+<input #fileUpload
+       type="file"
+       accept=".pdf, application/pdf"
+       (change)="onFileSelected($event)"
+       [(ngModel)]="inputFileName"
+       hidden
+>
