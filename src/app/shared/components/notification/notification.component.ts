@@ -1,13 +1,12 @@
 import {Component, EventEmitter, Output} from '@angular/core';
-import {MatIconButton, MatMiniFabButton} from '@angular/material/button';
+import {MatButtonModule} from '@angular/material/button';
 import {MatIcon} from '@angular/material/icon';
 
 @Component({
   selector: 'nb-notification',
   imports: [
     MatIcon,
-    MatMiniFabButton,
-    MatIconButton
+    MatButtonModule
   ],
   templateUrl: './notification.component.html',
   styleUrl: './notification.component.scss'
