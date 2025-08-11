@@ -26,7 +26,7 @@ export class OverviewComponent {
     if (file) {
       try {
         this.fileService.uploadPDF(file).subscribe((result) => {
-          const isUploading = result.progress !== 100;
+          const isUploading = result.progress !== 100 || !result.data;
           this.isUploading.set(isUploading);
           this.progress.set(result.progress);
           if (!isUploading && result.data) {
