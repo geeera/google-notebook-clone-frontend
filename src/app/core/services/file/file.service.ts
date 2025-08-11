@@ -7,7 +7,7 @@ import {
   throwError
 } from 'rxjs';
 import {HttpClient, HttpEvent, HttpEventType, HttpRequest} from '@angular/common/http';
-import {environment} from '../../../../environments/environment.development';
+import {environment} from '../../../../environments/environment';
 
 export interface NBFile extends File {
   url: string,
